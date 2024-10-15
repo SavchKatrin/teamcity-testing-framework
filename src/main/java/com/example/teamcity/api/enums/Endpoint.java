@@ -1,15 +1,43 @@
 package com.example.teamcity.api.enums;
 
-import com.example.teamcity.api.models.BaseModel;
-import com.example.teamcity.api.models.BuildType;
+import com.example.teamcity.api.models.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+// Аннотация @AllArgsConstructor автоматически генерирует конструктор с параметрами для всех полей класса
+// Аннотация @Getter автоматически генерирует методы доступа (getters) для полей класса
 @AllArgsConstructor
 @Getter
 public enum Endpoint {
-    BUILD_TYPES("/app/rest/buildTypes", BuildType.class);
+    // Определение значения перечисления (enum) для работы с эндпоинтом "buildTypes".
+    // Указано URL и соответствующий класс модели (BuildType), который представляет данные этого эндпоинта.
+    BUILD_TYPES("/app/rest/buildTypes", BuildType.class),
+    PROJECTS("/app/rest/projects", Project.class),
+    USERS("/app/rest/users", User.class);
 
+    // Поле для хранения URL эндпоинта
     private final String url;
+
+    // Поле для хранения класса модели, которая будет использоваться для обработки данных, возвращаемых с этого эндпоинта
     private final Class<? extends BaseModel> modelClass;
 }
+
+///Общее описание:
+///
+/// 	•	Класс Endpoint — это перечисление (enum), которое определяет различные API-эндпоинты (URL) и соответствующие классы моделей, которые представляют данные для этих эндпоинтов.
+///
+/// Поля:
+///
+/// 	1.	url — хранит строку URL для конкретного эндпоинта (в данном случае это "/app/rest/buildTypes").
+/// 	2.	modelClass — хранит класс модели (в данном случае BuildType.class), который будет использоваться для десериализации данных, полученных от API для данного эндпоинта.
+///
+/// Пример использования:
+///
+/// 	•	Когда код взаимодействует с эндпоинтом BUILD_TYPES, он знает, что нужно обращаться по URL "/app/rest/buildTypes" и использовать класс модели BuildType для представления данных, полученных с этого эндпоинта.
+///
+/// Аннотации:
+///
+/// 	•	@AllArgsConstructor — автоматически генерирует конструктор, принимающий все поля в качестве параметров (то есть url и modelClass).
+/// 	•	@Getter — автоматически генерирует методы доступа (getters) для полей url и modelClass, что позволяет другим частям программы получать значения этих полей.
+///
+/// Этот класс используется для упрощения работы с различными API-эндпоинтами, связывая каждый эндпоинт с его URL и моделью данных, которая будет использоваться для обработки ответов от API.
